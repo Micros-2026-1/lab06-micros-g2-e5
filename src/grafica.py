@@ -4,36 +4,38 @@ import matplotlib.animation as animation
 import re
 from collections import deque
 
-SERIAL_PORT = 'COM6'      
+SERIAL_PORT = 'COM6'
 BAUDRATE = 9600
-
 MAX_POINTS = 100
 
 ser = serial.Serial(SERIAL_PORT, BAUDRATE, timeout=1)
 
-voltages = deque(maxlen=MAX_POINTS)
+valores = deque(maxlen=MAX_POINTS)
 times = deque(maxlen=MAX_POINTS)
 time_counter = 0
 
-regex = re.compile(r"Voltaje:\s*([0-9.]+)")
+regex = re.compile(r"Valor:\s*([0-9.]+)")
 
 def update(frame):
     global time_counter
+
     line = ser.readline().decode('utf-8').strip()
-    
+    print(line)  # 👈 DEBUG: mira qué está llegando
+
     match = regex.search(line)
     if match:
-        voltage = float(match.group(1))
-        voltages.append(voltage)
+        valor = float(match.group(1))
+
+        valores.append(valor)
         times.append(time_counter)
         time_counter += 1
 
         ax.clear()
-        ax.plot(times, voltages, color='blue')
-        ax.set_ylim(0, 5)
-        ax.set_title("Voltaje leído por UART")
+        ax.plot(times, valores, color='purple') 
+        ax.set_ylim(0, 10)
+        ax.set_title("Valor Medido")
         ax.set_xlabel("Tiempo (s)")
-        ax.set_ylabel("Voltaje (V)")
+        ax.set_ylabel("Valor")
         ax.grid(True)
 
 fig, ax = plt.subplots()
