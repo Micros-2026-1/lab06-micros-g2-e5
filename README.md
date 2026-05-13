@@ -76,13 +76,26 @@ Esto evita que la memoria aumente indefinidamente mientras se reciben datos.
 
 Ahora el corazon de esta sección es:
 ````c
-regex = re.compile(r"Voltaje:\s*([0-9.]+)") def update(frame): global time_counter line = ser.readline().decode('utf-8').strip() match = regex.search(line) if match: voltage = float(match.group(1)) voltages.append(voltage) times.append(time_counter) time_counter += 1
+regex = re.compile(r"Voltaje:\s*([0-9.]+)")
+ def update(frame):
+  global time_counter line = ser.readline().decode('utf-8').strip()
+   match = regex.search(line)
+    if match: voltage = float(match.group(1))
+        voltages.append(voltage)
+        times.append(time_counter)
+        time_counter += 1
 ````
 <p align="justify" style="text-indent:40px;">
 La primera parte del código se encarga de leer y procesar los datos recibidos mediante la comunicación UART. Inicialmente, se utiliza una expresión regular con <code> regex=re.compile(r"Voltaje:\s*([0-9.]+)")</code> para identificar y extraer únicamente el valor numérico del voltaje enviado por el microcontrolador. Posteriormente, dentro de la función <code> update(frame)</code>, el programa lee una línea proveniente del puerto serial usando <code> ser.readline()</code>, la decodifica en formato UTF-8 y elimina caracteres innecesarios. Luego, mediante <code> regex.search(line)</code> se verifica si el dato recibido coincide con el formato esperado; en caso de ser válido, el valor es convertido a tipo decimal (float) y almacenado para ser utilizado posteriormente en la representación gráfica.<p>
 
 ````c
-ax.clear() ax.plot(times, voltages, color='blue') ax.set_ylim(0, 5) ax.set_title("Voltaje leído por UART") ax.set_xlabel("Tiempo (s)") ax.set_ylabel("Voltaje (V)") ax.grid(True)
+ax.clear()
+ ax.plot(times, voltages, color='blue')
+  ax.set_ylim(0, 5)
+   ax.set_title("Voltaje leído por UART")
+   ax.set_xlabel("Tiempo (s)")
+    ax.set_ylabel("Voltaje (V)")
+    ax.grid(True)
 ````
 
 <p align="justify" style="text-indent:40px;">
