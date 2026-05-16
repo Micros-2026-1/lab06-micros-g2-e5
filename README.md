@@ -18,8 +18,6 @@ Además, se desarrolló un programa en Python utilizando las librerías serial y
 </p>
 
 
-
-
 ### 1.2 Objetivos
 
 * Configurar el módulo UART del microcontrolador PIC para establecer comunicación serial.
@@ -34,21 +32,20 @@ Además, se desarrolló un programa en Python utilizando las librerías serial y
 
 ## Documentación
 
-### ¿Qué es el conversor USB a Serial UART?
 ### 2.1 Descripción del Laboratorio.
 
 <p align="justify" style="text-indent:40px;">
-Se realizó la implementación de una comunicación serial UART entre un microcontrolador PIC y un computador, utilizando programación en lenguaje C y Python. Inicialmente, se configuró el módulo UART del microcontrolador para transmitir datos a una velocidad de 9600 baudios mediante el uso del oscilador interno de 16 MHz. Posteriormente, se verificó el envío de mensajes a través del puerto serial utilizando funciones de transmisión de caracteres y cadenas de texto.<p>
+Se realizó la implementación de una comunicación serial UART entre un microcontrolador PIC y un computador, utilizando programación en lenguaje C y Python. Inicialmente, se configuró el módulo UART del microcontrolador para transmitir datos a una velocidad de 9600 baudios mediante el uso del oscilador interno de 16 MHz. Posteriormente, se verificó el envío de mensajes a través del puerto serial utilizando funciones de transmisión de caracteres y cadenas de texto.</p>
 
 <p align="justify" style="text-indent:40px;">
-Adicionalmente, se desarrolló un programa en Python encargado de leer los datos recibidos y representarlos gráficamente en tiempo real utilizando la librería matplotlib. En el computador se observó una gráfica de voltaje en función del tiempo, donde los valores variaban entre 0 y 5 V, permitiendo visualizar el comportamiento de la señal recibida mediante UART.<p>
+Adicionalmente, se desarrolló un programa en Python encargado de leer los datos recibidos y representarlos gráficamente en tiempo real utilizando la librería matplotlib. En el computador se observó una gráfica de voltaje en función del tiempo, donde los valores variaban entre 0 y 5 V, permitiendo visualizar el comportamiento de la señal recibida mediante UART.</p>
 
 ### 2.2 Explicacion del codigo implementado.
 
 ### Código en Python
 
 <p align="justify" style="text-indent:40px;">
-Este código tiene como función leer los datos enviados por el microcontrolador a través del puerto serial y mostrarlos gráficamente en tiempo real. Primero, se importan las librerías necesarias como serial para la comunicación UART, matplotlib para las gráficas, animation para actualizar la gráfica dinámicamente y re para buscar patrones de texto dentro de los datos recibidos.<p>
+Este código tiene como función leer los datos enviados por el microcontrolador a través del puerto serial y mostrarlos gráficamente en tiempo real. Primero, se importan las librerías necesarias como serial para la comunicación UART, matplotlib para las gráficas, animation para actualizar la gráfica dinámicamente y re para buscar patrones de texto dentro de los datos recibidos.</p>
 
 Posteriormente, se configura el puerto serial con:
 
@@ -179,7 +176,39 @@ void UART_WriteString(const char* str);
 ````
 
 ## Diagramas
+<p align="justify" style="text-indent:40px;">
+Para poder realizar el montaje teniamos que tener en cuenta la correcta conexión y sincronización entre el PIC y el UART, a la vez que la del UART con el serial, esto no solo se configuraba de manera digital si no que tambien intervenía una buena conexión y el reconocimiento de los puertos COM que se estuvieran usando en el computador. Para esto utilizamos el siguiente diagrama de conexión que se puedes observar en la figura 1.</p>
+
+
+<p align="center">
+  <img src="montaje.png" width="700"><br>
+  <em> <b> Figura 1.</b> Imagen de la referencia de la conexión entre los elementos. </em>
+</p>
 
 ## Evidencias de implementación
+<p align="justify" style="text-indent:40px;">
+La implementación del montaje se puede ver a continuación, en primera instancia simplemente se monstraron frases en el monitar serial, para aprender lo basico sobre la sincronización con el UART, y como funciona, ya despues se incrementó, la gráfica en phyton que se sincronizaba con la información que se mandaba. </p>
+
+<p align="center">
+  <img src="caballo.gif" width="700"><br>
+  <em> <b> Figura 2.</b> Imagen de referencia de la primera parte del laboratorio </em>
+</p>
+
+<p align="justify" style="text-indent:40px;">
+En nuestro caso nosotros utilizamos PUTTY para leer los datos que se mandaban por el serial pero tambien funcionaba bien si lo probamos con arduino u otras aplicaciones. En las siguiente figura se va a poder observar como para la segunda parte no solo se recibieron los datos, si no como estos a su vez se graficaban en tiempo real.</p>
+
+<p align="center">
+  <img src="dets.gif" width="700"><br>
+  <em> <b> Figura 3.</b> Imagen de referencia del la gráfica de phyton. </em>
+</p>
+
 
 ## Conclusiones
+
+* Se logró configurar de manera eficaz el UART, para poder establecer una comunicación asincronica por medio de el sistema y el computador. De igual forma se comprendio que es asincronico yaque no nesecita de una señal de reloj para enviar la información, si no, que todo esto se configura por medio de los baudios.
+
+* Se verificó la correcta transmición por medio del serial, en este caso se pueden enviar valores numericos o string depende de que funcion queramos que cumpla la comunicación.
+
+* Se pudó leer e interpretar la información en una gráfica, utilizando Phyton y la comunicación serial.
+
+* Se comprendió el uso básico de Phyton para generar graáficas que se actualizen en tiempo real, de igual manera tambien se comprendio el funcionamiento de las librerias que se utilizan para poder leer los datos y sus principales comandos.
